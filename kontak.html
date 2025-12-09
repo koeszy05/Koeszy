@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kontak - Kopi Nusantara</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background-color: #f8f5f2;
+            font-family: "Segoe UI", sans-serif;
+        }
+        header {
+            background: #3e2723;
+            color: #fff;
+            padding: 25px 0;
+            text-align: center;
+        }
+        header nav ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+        header nav ul li {
+            display: inline-block;
+            margin: 0 12px;
+        }
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        header nav ul li a.active {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        main {
+            max-width: 700px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        form label {
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        button {
+            min-width: 120px;
+        }
+        footer {
+            background: #3e2723;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        #errorMsg {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header>
+        <h1>Kopi Nusantara</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="tentang.html">Tentang Kami</a></li>
+                <li><a href="produk.html">Produk</a></li>
+                <li><a href="galeri.html">Galeri</a></li>
+                <li><a href="kontak.html" class="active">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <section>
+            <h2 class="text-center mb-3">Hubungi Kami</h2>
+            <p class="text-center mb-4">
+                Silakan isi formulir berikut untuk menghubungi tim <strong>Kopi Nusantara</strong>:
+            </p>
+
+            <form id="formKontak" novalidate>
+                <label for="nama">Nama Lengkap:</label>
+                <input type="text" id="nama" name="nama" class="form-control" placeholder="Masukkan nama Anda" required />
+
+                <label for="email">Alamat Email:</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="contoh@email.com" required />
+
+                <label for="kategori">Kategori Pesan:</label>
+                <select id="kategori" name="kategori" class="form-select" required>
+                    <option value="">-- Pilih Kategori --</option>
+                    <option value="umum">Umum</option>
+                    <option value="produk">Produk</option>
+                    <option value="kerjasama">Kerja Sama</option>
+                </select>
+
+                <label for="tanggal">Tanggal Pengiriman:</label>
+                <input type="date" id="tanggal" name="tanggal" class="form-control" />
+
+                <fieldset class="mt-3">
+                    <legend><strong>Jenis Kelamin:</strong></legend>
+                    <div class="form-check">
+                        <input type="radio" id="jk_pria" name="jenis_kelamin" value="pria" class="form-check-input" required />
+                        <label class="form-check-label" for="jk_pria">Pria</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" id="jk_wanita" name="jenis_kelamin" value="wanita" class="form-check-input" />
+                        <label class="form-check-label" for="jk_wanita">Wanita</label>
+                    </div>
+                </fieldset>
+
+                <label for="file">Lampiran (opsional):</label>
+                <input type="file" id="file" name="file" class="form-control" accept=".jpg,.png,.pdf,.docx" />
+
+                <label for="pesan" class="mt-3">Pesan Anda:</label>
+                <textarea id="pesan" name="pesan" class="form-control" rows="5" placeholder="Tulis pesan Anda di sini..." required></textarea>
+
+                <div class="form-check mt-3 mb-3">
+                    <input type="checkbox" id="langganan" name="langganan" value="ya" class="form-check-input" />
+                    <label class="form-check-label" for="langganan">Saya ingin menerima newsletter Kopi Nusantara</label>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary me-2">Kirim Pesan</button>
+                    <button type="reset" class="btn btn-secondary">Bersihkan</button>
+                </div>
+
+                <p id="errorMsg"></p>
+            </form>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2025 Kopi Nusantara. Semua Hak Dilindungi.</p>
+    </footer>
+
+    <!-- JAVASCRIPT VALIDATION -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("formKontak");
+            const nama = document.getElementById("nama");
+            const email = document.getElementById("email");
+            const pesan = document.getElementById("pesan");
+            const errorMsg = document.getElementById("errorMsg");
+
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                if (!nama.value.trim() || !email.value.trim() || !pesan.value.trim()) {
+                    errorMsg.textContent = "⚠️ Mohon lengkapi semua bidang wajib (Nama, Email, Pesan).";
+                    return;
+                }
+
+                errorMsg.textContent = "";
+                alert("✅ Pesan berhasil dikirim! Terima kasih telah menghubungi Kopi Nusantara.");
+                form.reset();
+            });
+        });
+    </script>
+
+</body>
+</html>
